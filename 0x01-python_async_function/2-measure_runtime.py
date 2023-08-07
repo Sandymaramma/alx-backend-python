@@ -5,22 +5,14 @@ from typing import List
 from time import time
 from random import randint
 
-# import the wait_random function
 
-from basic_async_syntax import wait_random
-
-# Import the wait_n function from 0-basic_async_syntax.py
-
-
-async def wait_n(n: int, max_delay: int) -> List[float]:
-    tasks = [wait_random(max_delay) for _ in range(n)]
-    delays = await asyncio.gather(*tasks)
-    return sorted(delays)
+wait_n = __import__('1-concurrent_coroutines').wait_n
 
 
 def measure_time(n: int, max_delay: int) -> float:
-    start_time = time()
-    asyncio.run(wait_n(n, max_delay))
-    end_time = time()
-    total_time = end_time - start_time
-    return total_time / n
+    ''' Return execution time for wait_n given `n` and `max_delay`. '''
+    time_0 = time()
+    run(wait_n(n, max_delay))
+    time_1 = time()
+    elapsed_time = time_1 - time_0
+    return elapsed_time / n
