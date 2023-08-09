@@ -1,20 +1,13 @@
 #!/usr/bin/env python3
 """ Coroutine async_generator, takes no arguement """
-import asyncio
-import random
+from asyncio import sleep
+from random import random
+from typing import Generator
 
 
-async def async_generator():
-    for _ in range(10):
-        await asyncio.sleep(1)  # Asynchronously wait for 1 second
-        yield random.randint(0, 10)
-
-# Example usage:
-
-
-async def main():
-    async for number in async_generator():
-        print("Generated:", number)
-
-# Run the event loop
-asyncio.run(main())
+async def async_generator() -> Generator[float, None, None]:
+    ''' Generator that yields a random value between 0 and 10 every second,
+        10 times. '''
+    for i in range(10):
+        await sleep(1)
+        yield 10 * random()
